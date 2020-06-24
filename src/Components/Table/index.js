@@ -17,22 +17,19 @@ class Table extends Component {
       }
       console.log({ newArr })
       return (
-        <>
-          <tr key={index}>
-            {
-              newArr.map((e, index) => {
-                console.log(e, 'adentro del returnnnnnnn')
-                Object.values(e).map((i, index) => {
-                  return (
-                    <td>{i}</td>
-                  )
-                })
-
+        <tr key={index}>
+          {
+            newArr.map((e) => (
+              Object.values(e).map((i) => {
+                return (
+                  <td>{i}</td>
+                )
               })
-            }
-          </tr>
-        </>
-      )
+
+              ))
+          }
+        </tr>
+    )
     })
     return filteredData;
   }
@@ -49,8 +46,8 @@ class Table extends Component {
   render() {
     return (
       <div>
-        <h1 id='title'>React Dynamic Table</h1>
-        <table id='students'>
+        <h1 id='title'>Assignment A</h1>
+        <table id='machines'>
           <tbody>
             <tr>{this.renderTableHeader()}</tr>
             {this.renderTableData()}
