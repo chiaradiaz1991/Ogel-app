@@ -1,61 +1,61 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './styles.css'
 
-class Table extends Component {
-
-  renderTableData() {
-    const data = this.props.data;
+const Table = (props) => {
+  
+  const renderTableData = () => {
+    const data = props.data;
     const filteredData = data.map((elem, index) => {
       let newArr = [];
+      let scrap = elem['SCRAP_PERCENTAGE'];
+      // iterates object entries of elem
       for (let [key, value] of Object.entries(elem)) {
-        if (key.startsWith('H') || key.startsWith('MACHINE')) {
-          console.log('ELEMKey-> ', key, value)
+        const isHour = key.startsWith('H');
+        // filter if the element is hour or "machine"
+        if (isHour || key.startsWith('MACHINE')) {
+          let val = isHour ? value * scrap : value;
+          let scrapHourFixed = isHour ? val.toFixed(2) : value;
+          let hourNet = isHour ? value - scrapHourFixed : value;
+          // create a new array of object 
           newArr.push({
-            [key]: value
+            [key]: hourNet
           });
         }
       }
-      console.log({ newArr })
       return (
+        // create table
         <tr key={index}>
           {
-            newArr.map((e) => (
-              Object.values(e).map((i) => {
-                return (
-                  <td>{i}</td>
-                )
-              })
-
-              ))
+            // map new array and create each row of the table
+            newArr.map((e) => Object.values(e).map((i) => <td>{i}</td>))
           }
         </tr>
-    )
+      )
     })
     return filteredData;
   }
 
-  renderTableHeader() {
-    let headers = this.props.headers;
+  const renderTableHeader = () => {
+    let headers = props.headers;
     return headers.map((key, index) => {
       if (key.startsWith('H') || key.startsWith('MACHINE')) {
+        // assing headers to the table
         return <th key={index}>{key.toUpperCase()}</th>
       }
     })
   }
 
-  render() {
-    return (
-      <div>
-        <h1 id='title'>Assignment A</h1>
-        <table id='machines'>
-          <tbody>
-            <tr>{this.renderTableHeader()}</tr>
-            {this.renderTableData()}
-          </tbody>
-        </table>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h1 id='title'>NET production (gross production – scrap) for every hour</h1>
+      <table id='machines'>
+        <tbody>
+          <tr>{renderTableHeader()}</tr>
+          {renderTableData()}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 export default Table;

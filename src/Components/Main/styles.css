@@ -1,7 +1,5 @@
 
-
-h1 {
-  margin-left: 30px;
-  font-weight: 900;
+.main-container {
+  margin: 20px;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }

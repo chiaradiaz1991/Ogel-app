@@ -1,15 +1,16 @@
 import React from 'react';
+
+//components
 import './App.css';
-import Machine from './Components/Machine';
+import Main from './Components/Main';
 
 
 
 const App = () => {
-
   return (
     <>
-      <Machine />
-      {/* <Table /> */}
+    <h1>Ogel Challenge</h1>
+      <Main />
     </>
   );
 }
